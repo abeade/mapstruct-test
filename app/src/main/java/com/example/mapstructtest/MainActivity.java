@@ -10,8 +10,10 @@ import com.example.mapstructtest.model.Car;
 import com.example.mapstructtest.model.CarDto;
 import com.example.mapstructtest.model.CarType;
 import com.example.mapstructtest.model.ImmutableConstructableCar;
+import com.example.mapstructtest.model.ImmutableConstructibleCarDto;
 import com.example.mapstructtest.model.mapping.AutoValueMapper;
 import com.example.mapstructtest.model.mapping.CarMapper;
+import com.example.mapstructtest.model.mapping.ImmutableConstructableCarMapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-        tv = (TextView)findViewById(R.id.tv_text);
+        tv = findViewById(R.id.tv_text);
 	}
-
 
 	@Override
 	protected void onResume() {
@@ -31,13 +32,15 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         sb.append(manualMapping());
 		sb.append(withAutoValue());
+		sb.append(withImmutable());
         tv.setText(sb.toString());
 	}
 
 	String withImmutable() {
+		// Currently maps to nulls
 		ImmutableConstructableCar immutableConstructableCar = new ImmutableConstructableCar("Immutable Audi", 6, CarType.LARGE);
-//		ImmutableConstructibleCarDto immutableCarDto = ImmutableCarMapper.INSTANCE.carToCarDto(immutableCar);
-		return getString(immutableConstructableCar, "TODO", "Immutable: ");
+		ImmutableConstructibleCarDto immutableCarDto = ImmutableConstructableCarMapper.INSTANCE.carToCarDto(immutableConstructableCar);
+		return getString(immutableConstructableCar, immutableCarDto, "Immutable: ");
 	}
 
 	String manualMapping() {

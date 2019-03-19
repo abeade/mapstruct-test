@@ -5,6 +5,10 @@ public class ImmutableConstructibleCarDto {
 	private final int seatCount;
 	private final String type;
 
+	public ImmutableConstructibleCarDto() {
+		this(null, 0, null);
+	}
+
 	public ImmutableConstructibleCarDto(String constructor, int seatCount, String type) {
 		this.constructor = constructor;
 		this.seatCount = seatCount;
