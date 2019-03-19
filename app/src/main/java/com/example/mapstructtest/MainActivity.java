@@ -6,11 +6,14 @@ import android.widget.TextView;
 
 import com.example.mapstructtest.model.AutoValueCar;
 import com.example.mapstructtest.model.AutoValueCarDto;
+import com.example.mapstructtest.model.AutoValueFluentCar;
+import com.example.mapstructtest.model.AutoValueFluentCarDto;
 import com.example.mapstructtest.model.Car;
 import com.example.mapstructtest.model.CarDto;
 import com.example.mapstructtest.model.CarType;
 import com.example.mapstructtest.model.ImmutableConstructableCar;
 import com.example.mapstructtest.model.ImmutableConstructibleCarDto;
+import com.example.mapstructtest.model.mapping.AutoValueFluentMapper;
 import com.example.mapstructtest.model.mapping.AutoValueMapper;
 import com.example.mapstructtest.model.mapping.CarMapper;
 import com.example.mapstructtest.model.mapping.ImmutableConstructableCarMapper;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         sb.append(manualMapping());
 		sb.append(withAutoValue());
+		sb.append(withAutoValueFluent());
 		sb.append(withImmutable());
         tv.setText(sb.toString());
 	}
@@ -61,6 +65,17 @@ public class MainActivity extends AppCompatActivity {
 
 		AutoValueCarDto carDto = AutoValueMapper.INSTANCE.toDto(car);
 		return getString(car, carDto, "mapstruct mapping AutoValue");
+	}
+
+	String withAutoValueFluent() {
+		AutoValueFluentCar.Builder builder = AutoValueFluentCar.builder();
+		builder.setConstructor("Audi");
+		builder.setNumberOfSeats(5);
+		builder.setType(CarType.LUXURY);
+		AutoValueFluentCar car = builder.build();
+
+		AutoValueFluentCarDto carDto = AutoValueFluentMapper.INSTANCE.toDto(car);
+		return getString(car, carDto, "mapstruct mapping fluent AutoValue");
 	}
 
 	private String getString(Object input, Object output, String info) {

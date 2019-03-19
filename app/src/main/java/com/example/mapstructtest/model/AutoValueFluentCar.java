@@ -1,11 +1,17 @@
 package com.example.mapstructtest.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.auto.value.AutoValue;
 
 @AutoValue
 public abstract class AutoValueFluentCar {
+    @Nullable
     public abstract String constructor();
+
     public abstract int numberOfSeats();
+
+    @Nullable
     public abstract CarType type();
 
     public static Builder builder() {
@@ -15,8 +21,11 @@ public abstract class AutoValueFluentCar {
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder setConstructor(String value);
+
         public abstract Builder setNumberOfSeats(int value);
+
         public abstract Builder setType(CarType value);
+
         public abstract AutoValueFluentCar build();
     }
 }
